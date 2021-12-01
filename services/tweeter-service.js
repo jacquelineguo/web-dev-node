@@ -49,9 +49,9 @@ module.exports = (app) => {
     const id = req.params['id'];
     // tweets = tweets.map(tweet => {
     //   if (tweet._id === id) {
-    let tweet = dao.findTweetById(id)
+    dao.findTweetById(id)
     .then(tweet => {
-      console.log("\n\n\n", tweet.stats.likes, "\n\n\n");
+      // console.log("\n\n\n", tweet.stats.likes, "\n\n\n");
       if (tweet.liked === true) {
         tweet.liked = false;
         tweet.stats.likes--;
@@ -60,7 +60,7 @@ module.exports = (app) => {
         tweet.stats.likes++;
       }
 
-      console.log("\n\n\n", tweet.stats.likes, "\n\n\n");
+      // console.log("\n\n\n", tweet.stats.likes, "\n\n\n");
       // return tweet;
       // } else {
       //   return tweet;
