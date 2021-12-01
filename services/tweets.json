@@ -17,7 +17,8 @@
       "comments": 123,
       "retweets": 234,
       "likes": 345
-    }
+    },
+    "liked": false
   },
   {
     "_id": "567",

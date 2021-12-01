@@ -1,0 +1,93 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 > show dbs\
+admin   0.000GB\
+config  0.000GB\
+local   0.000GB\
+use webdev\
+switched to db webdev\
+> db.movies.insert(\{title: 'Aliens', rating: 4.5\})\
+WriteResult(\{ "nInserted" : 1 \})\
+> show dbs\
+admin   0.000GB\
+config  0.000GB\
+local   0.000GB\
+webdev  0.000GB\
+> db.movies.insert(\{title: 'Terminator', rating: 4.8\})\
+WriteResult(\{ "nInserted" : 1 \})\
+> db.movies.insert(\{title: 'Avatar', rating: 4.7\})\
+WriteResult(\{ "nInserted" : 1 \})\
+> db.movies.insert(\{title: 'Dune', rating: 4.9\})\
+WriteResult(\{ "nInserted" : 1 \})\
+> show dbs\
+admin   0.000GB\
+config  0.000GB\
+local   0.000GB\
+webdev  0.000GB\
+> db.movies.find();\
+\{ "_id" : ObjectId("61a6c467479d1c3850c18ac0"), "title" : "Aliens", "rating" : 4.5 \}\
+\{ "_id" : ObjectId("61a6c4ff479d1c3850c18ac1"), "title" : "Terminator", "rating" : 4.8 \}\
+\{ "_id" : ObjectId("61a6c515479d1c3850c18ac2"), "title" : "Avatar", "rating" : 4.7 \}\
+\{ "_id" : ObjectId("61a6c523479d1c3850c18ac3"), "title" : "Dune", "rating" : 4.9 \}\
+> db.movies.find(\{_id: ObjectId("61a6c467479d1c3850c18ac0")\});\
+\{ "_id" : ObjectId("61a6c467479d1c3850c18ac0"), "title" : "Aliens", "rating" : 4.5 \}\
+> db.movies.find(\{title: 'Aliens'\});\
+\{ "_id" : ObjectId("61a6c467479d1c3850c18ac0"), "title" : "Aliens", "rating" : 4.5 \}\
+> db.movies.find().pretty()\
+\{\
+	"_id" : ObjectId("61a6c467479d1c3850c18ac0"),\
+	"title" : "Aliens",\
+	"rating" : 4.5\
+\}\
+\{\
+	"_id" : ObjectId("61a6c4ff479d1c3850c18ac1"),\
+	"title" : "Terminator",\
+	"rating" : 4.8\
+\}\
+\{\
+	"_id" : ObjectId("61a6c515479d1c3850c18ac2"),\
+	"title" : "Avatar",\
+	"rating" : 4.7\
+\}\
+\{\
+	"_id" : ObjectId("61a6c523479d1c3850c18ac3"),\
+	"title" : "Dune",\
+	"rating" : 4.9\
+\}\
+\
+> db.movies.db.movies.updateOne(\{title: 'Avatar'\}, \{rating: 4.9\})\
+uncaught exception: Error: the update operation document must contain atomic operators :\
+DBCollection.prototype.updateOne@src/mongo/shell/crud_api.js:565:19\
+@(shell):1:1\
+> db.movies.updateOne(\{"title": "Avatar"\}, \{$set: \{"rating": 4.9\}\})\
+\{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 \}\
+> db.movies.find( )\
+\{ "_id" : ObjectId("61a6c467479d1c3850c18ac0"), "title" : "Aliens", "rating" : 4.5 \}\
+\{ "_id" : ObjectId("61a6c4ff479d1c3850c18ac1"), "title" : "Terminator", "rating" : 4.8 \}\
+\{ "_id" : ObjectId("61a6c515479d1c3850c18ac2"), "title" : "Avatar", "rating" : 4.9 \}\
+\{ "_id" : ObjectId("61a6c523479d1c3850c18ac3"), "title" : "Dune", "rating" : 4.9 \}\
+>\
+\
+db.movies.updateOne(\{_id:ObjectId("61a6c4ff479d1c3850c18ac1")\}, \{$set: \{"rating": 4.6\}\});\
+\{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 \}\
+> db.movies.find( )\
+\{ "_id" : ObjectId("61a6c467479d1c3850c18ac0"), "title" : "Aliens", "rating" : 4.5 \}\
+\{ "_id" : ObjectId("61a6c4ff479d1c3850c18ac1"), "title" : "Terminator", "rating" : 4.6 \}\
+\{ "_id" : ObjectId("61a6c515479d1c3850c18ac2"), "title" : "Avatar", "rating" : 4.9 \}\
+\{ "_id" : ObjectId("61a6c523479d1c3850c18ac3"), "title" : "Dune", "rating" : 4.9 \}\
+>\
+\
+> db.movies.deleteOne(\{_id:ObjectId("61a6c4ff479d1c3850c18ac1")\});\
+\{ "acknowledged" : true, "deletedCount" : 1 \}\
+> db.movies.find( )\
+\{ "_id" : ObjectId("61a6c467479d1c3850c18ac0"), "title" : "Aliens", "rating" : 4.5 \}\
+\{ "_id" : ObjectId("61a6c515479d1c3850c18ac2"), "title" : "Avatar", "rating" : 4.9 \}\
+\{ "_id" : ObjectId("61a6c523479d1c3850c18ac3"), "title" : "Dune", "rating" : 4.9 \}\
+>\
+\
+}
